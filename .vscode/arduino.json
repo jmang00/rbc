@@ -1,5 +1,5 @@
 {
-    "port": "COM8",
+    "port": "COM9",
     "board": "arduino:avr:unomini",
-    "sketch": "workshops\\workshop1\\workshop1.ino"
+    "sketch": "workshops\\dabble\\dabble.ino"
 }

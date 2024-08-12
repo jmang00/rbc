@@ -10,16 +10,26 @@
 #define INCLUDE_GAMEPAD_MODULE
 #include <Dabble.h>
 
+#define RX 3
+#define TX 2
+
+#define SERIAL_BAUD 115200
+#define BLUETOOTH_BAUD 9600
+
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(250000);      // make sure your Serial Monitor is also set at this baud rate.
-  Dabble.begin(9600);      //Enter baudrate of your bluetooth.Connect bluetooth on Bluetooth port present on evive.
+  Serial.begin(SERIAL_BAUD);      // make sure your Serial Monitor is also set at this baud rate.
+  Dabble.begin(BLUETOOTH_BAUD, RX, TX);      //Enter baudrate of your bluetooth.Connect bluetooth on Bluetooth port present on evive.
 }
 
 void loop() {
   Dabble.processInput();             //this function is used to refresh data obtained from smartphone.Hence calling this function is mandatory in order to get data properly from your mobile.
-  Serial.print("KeyPressed: ");
-  if (GamePad.isUpPressed()){
-    Serial.print("UP");
+
+  // Serial.print("KeyPressed: ");
+  if (GamePad.isRightPressed()){
+    Serial.print("R");
+  }
+  else if (GamePad.isLeftPressed()){
+    Serial.print("L");
   }
 }
