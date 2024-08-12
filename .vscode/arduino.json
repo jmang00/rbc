@@ -1,0 +1,5 @@
+{
+    "port": "COM8",
+    "board": "arduino:avr:unomini",
+    "sketch": "workshops\\workshop1\\workshop1.ino"
+}
