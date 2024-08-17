@@ -3,4 +3,6 @@
 
 /* Define pins here*/
 
+#define LED_PIN 7
+
 #endif
