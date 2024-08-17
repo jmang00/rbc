@@ -14,14 +14,10 @@
 // Library to make a Software UART
 #include <SoftwareSerial.h>
 
-#define RX 3
-#define TX 2
+#include "baud/baud.h"
+#include "baud/pins.h"
 
-// Define the LED pin
-#define LED1 7
-#define LED2 8
-
-#define BAUDRATE 9600              // speed of communication in bps
+// #define BAUDRATE 9600              // speed of communication in bps
 SoftwareSerial BTSerialM(RX, TX);  //Set RX and TX pins
 
 
