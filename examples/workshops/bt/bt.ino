@@ -14,8 +14,8 @@
 // Library to make a Software UART
 #include <SoftwareSerial.h>
 
-#include "baud/baud.h"
-#include "baud/pins.h"
+#define RX 3
+#define TX 2
 
 // #define BAUDRATE 9600              // speed of communication in bps
 SoftwareSerial BTSerialM(RX, TX);  //Set RX and TX pins
@@ -23,7 +23,7 @@ SoftwareSerial BTSerialM(RX, TX);  //Set RX and TX pins
 void setup() {
 
   // Start Serial Monitor for feedback
-  Serial.begin(115200);
+  Serial.begin(9600);
 
   // // TODO: set up pin modes for LEDs
   // pinMode(LED1, OUTPUT);
