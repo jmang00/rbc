@@ -13,5 +13,5 @@
 #define ENB 10 // PWM ~
 
 // Bluetooth
-#define RX 4
-#define TX 3
+#define RX 3
+#define TX 2
