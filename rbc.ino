@@ -21,13 +21,15 @@
 // everything declared here can be used in loop()
 int frame = 0;  // keeps track of the number of frames that have passed
 int frameStart, frameEnd;   // record frame times
-int debug_level = 0; // 0=nothing, 1=serial controls + basics, 2=everythings
+int debug_level = 3; // 0=nothing, 1=serial controls + basics, 2=everything, 3=everything + delay
 
 char serialCharacter; // serial input character
 
 // Controller inputs
 float joystickRadius, // an integer between 0 and 7
       joystickAngle;  // an angle in RADIANS
+
+int leftSpeed, rightSpeed;
 
 // Motors`
 Motor leftMotor(ENA, IN1, IN2);
@@ -54,15 +56,25 @@ void setup() {
  * 
  */
 void loop() {
+  // leftMotor.update(7);
+  // rightMotor.update(7);
+  // delay(5000);
+
   startFrame();
 
-  if (debug_level > 0) {
+  if (debug_level >= 1) {
     processSerialInput();
   }
 
   processControllerInput();
 
+  // joystickAngle = 0;
+  // joystickRadius = 7;
   updateMotorsFromJoyStick();
+  
+  if (debug_level >= 3) {
+    delay(5000);
+  }
 
   endFrame();
 }
@@ -75,6 +87,11 @@ void loop() {
  * 
  */
 void startFrame() {
+    if (debug_level >= 2) {
+      Serial.print("Frame: ");
+      Serial.println(frame);
+    }
+
     frame += 1;
     frameStart = millis();
 }
@@ -109,6 +126,13 @@ void processControllerInput() {
 
   joystickRadius = GamePad.getRadius();
   joystickAngle = GamePad.getAngle() * DEG_TO_RAD;  // convert to radians
+
+  if (debug_level >= 2) {
+    Serial.print("Joystick Radius: ");
+    Serial.println(joystickRadius);
+    Serial.print("Joystick Angle: ");
+    Serial.println(joystickAngle);
+  }
 }
 
 /**
@@ -116,19 +140,24 @@ void processControllerInput() {
  * 
  */
 void updateMotorsFromJoyStick() {
-  if (joystickRadius >= CONTROLLER_DEADZONE) {
-    // Have a deadzone in the middle
-    leftMotor.update(
-      joystickRadius * calcL(joystickAngle)
-    );
-
-    rightMotor.update(
-      joystickRadius * calcR(joystickAngle)
-    );
+  // Have a deadzone in the middle
+  if (joystickRadius > CONTROLLER_DEADZONE) {
+    leftSpeed = joystickRadius * calcL(joystickAngle);
+    rightSpeed = joystickRadius * calcR(joystickAngle);   
   }
   else {
-    leftMotor.update(0);
-    rightMotor.update(0);
+    leftSpeed = 0;
+    rightSpeed = 0;
+  }
+  
+  leftMotor.update(leftSpeed);
+  rightMotor.update(rightSpeed);
+
+  if (debug_level >= 2) {
+    Serial.print("Left Speed: ");
+    Serial.println(leftSpeed);
+    Serial.print("Right Speed: ");
+    Serial.println(rightSpeed);
   }
 }
 

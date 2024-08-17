@@ -131,6 +131,7 @@ public:
   void update(int n) {
 
     // Minimal version
+    // TODO: get working
     // updateSpeed(abs(n));
 
     // if (n >= 0) {
