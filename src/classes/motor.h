@@ -1,23 +1,42 @@
 /**
  * A class for a motor.
  * 
+ * Define 8 speeds for the motor.
  */
 
 #pragma once
 
+#include "../constants.h"
+#include <Arduino.h>
+
 class Motor {
 private:
+  /**
+   * @brief Pin values
+   * 
+   */
   int _ena, _in1, _in2, _scaling;
+
+    /**
+   * @brief The speed (an integer from 0 to 7)
+   * 
+   */
+  int _speed = 0;
+
+  /**
+   * @brief The direction (1 = forward, -1 = backward)
+   * 
+   */
+  int _direction = 0;
+  // TODO: could be useful to manually define how motor scales
+  // int[] _speeds = {0, 0, 180, 190, 200, 210, 220, 230, 240, 250, 255};
 
 public:
   Motor(int ena, int in1, int in2, int scaling = 1) {
-    // Scaling factor should be something like 0.98 for the slower motor.
     // Store pin values
     _ena = ena;
     _in1 = in1;
     _in2 = in2;
-
-    _scaling = scaling;
   };
 
   void init() {
@@ -36,42 +55,55 @@ public:
     Serial.print('Initialised motor!');
   }
 
-  int getSpeed(int speed) {
-    // Take in a speed as an integer
-    // Range is 180-255
-    switch (speed)
-    {
-    case 0:
-      return 160;
-    
-    case 1:
-      return 170;
-    
-    case 2:
-      return 255;
-  
-    default:
-      break;
+  /**
+   * @brief Updates the motor's speed
+   * 
+   * @param s an integer from 0 to 7 indicating the speed
+   */
+  void updateSpeed(int s) {
+    if (_speed == s) {
+      return;
     }
 
+    int PWM = round(s/7*255);
+    analogWrite(_ena, PWM);
+    _speed = s;
   }
 
-  void stop() {
-    digitalWrite(_ena, HIGH);
-    digitalWrite(_in1, LOW);
-    digitalWrite(_in2, LOW);
-  };
+  /**
+   * @brief Updates the motor's direction.
+   * 
+   * @param d an integer -1 or 1
+   */
+  void updateDirection(int d) {
+    if (_direction == d) {
+      return;
+    }
 
-  void forward(int speedCode) {
-    // Speed is an int from 0-255
-    analogWrite(_ena, round(getSpeed(speedCode)*_scaling));
-    digitalWrite(_in1, HIGH);
-    digitalWrite(_in2, LOW);
-  };
+    if (d == 1) {
+      digitalWrite(_in1, HIGH);
+      digitalWrite(_in2, LOW);
+    } else {
+      digitalWrite(_in1, LOW);
+      digitalWrite(_in2, HIGH);
+    }
+    _direction = d;
+  } 
 
-  void backward(int speedCode) {
-    digitalWrite(_ena, round(getSpeed(speedCode)*_scaling));
-    digitalWrite(_in1, LOW);
-    digitalWrite(_in2, HIGH);
-  };
+  /**
+   * @brief Update speed and direction
+   * 
+   */
+  void update(int n) {
+    Serial.print('Updating speed/directi with n=');
+    Serial.println(n);
+
+    updateSpeed(abs(n));
+
+    if (n>=0) {
+      updateDirection(1);
+    } else {
+      updateDirection(-1);
+    }
+  }
 };
