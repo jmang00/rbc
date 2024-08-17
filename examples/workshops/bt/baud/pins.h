@@ -1,8 +1,7 @@
-#ifndef FILE_H
-#define FILE_H
+#pragma once
 
-#define RX 3
-#define TX 2
+#define RX 4
+#define TX 3
 
 // Define the LED pin
 #define LED1 7

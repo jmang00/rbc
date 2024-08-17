@@ -1,6 +1,4 @@
-#ifndef FILE_H
-#define FILE_H
+#pragma once
 
-#define BAUDRATE 9600              // speed of communication in bps
-
-#endif
+#define SERIAL_BAUDRATE 115200
+#define BLUETOOTH_BAUDRATE 9600
