@@ -5,7 +5,6 @@
 #pragma once
 
 // Leds
-#define LED 7
 
 // Motors
 #define ENA 5 // PWM ~
@@ -16,5 +15,5 @@
 #define ENB 10 // PWM ~
 
 // Bluetooth
-#define RX
-#define TX
+#define RX 4
+#define TX 3
