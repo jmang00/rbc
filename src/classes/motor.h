@@ -1,7 +1,8 @@
 /**
- * A motor.
+ * A class for a motor.
  * 
  */
+
 #pragma once
 
 class Motor {
