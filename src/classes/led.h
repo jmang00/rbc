@@ -1,5 +1,5 @@
 /**
- * An LED
+ * A class for an LED.
  * 
  */
 

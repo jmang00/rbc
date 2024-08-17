@@ -10,8 +10,8 @@
 #define INCLUDE_GAMEPAD_MODULE
 #include <Dabble.h>
 
-#define RX 3
-#define TX 2
+#define RX 4
+#define TX 3
 
 #define SERIAL_BAUD 115200
 #define BLUETOOTH_BAUD 9600
@@ -23,6 +23,13 @@ void setup() {
 }
 
 void loop() {
+  // Handle Serial input
+  if (Serial.available()) {
+    char c = Serial.read();
+    // Send data to both Master and Slave HM-10 Modules
+    Serial.write(c);
+  }
+
   Dabble.processInput();             //this function is used to refresh data obtained from smartphone.Hence calling this function is mandatory in order to get data properly from your mobile.
 
   // Serial.print("KeyPressed: ");

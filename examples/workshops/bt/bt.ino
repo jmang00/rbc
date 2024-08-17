@@ -20,18 +20,17 @@
 // #define BAUDRATE 9600              // speed of communication in bps
 SoftwareSerial BTSerialM(RX, TX);  //Set RX and TX pins
 
-
 void setup() {
 
   // Start Serial Monitor for feedback
-  Serial.begin(BAUDRATE);
+  Serial.begin(115200);
 
-  // TODO: set up pin modes for LEDs
-  pinMode(LED1, OUTPUT);
-  pinMode(LED2, OUTPUT);
+  // // TODO: set up pin modes for LEDs
+  // pinMode(LED1, OUTPUT);
+  // pinMode(LED2, OUTPUT);
 
   // Bluetooth serial connection in specific baud rate that we defined earlier
-  BTSerialM.begin(BAUDRATE);
+  BTSerialM.begin(9600);
 }
 
 void loop() {
@@ -45,20 +44,20 @@ void loop() {
         slave_data += c;
         Serial.write(c);
 
-        switch (c) {
-          case '1':
-            digitalWrite(LED1, HIGH);  // turn the LED on (HIGH is the voltage level)
-            delay(1000);                      // wait for a second
-            digitalWrite(LED1, LOW);   // turn the LED off by making the voltage LOW
-            delay(1000);                      // wait for a second
-            break;
+        // switch (c) {
+        //   case '1':
+        //     digitalWrite(LED1, HIGH);  // turn the LED on (HIGH is the voltage level)
+        //     delay(1000);                      // wait for a second
+        //     digitalWrite(LED1, LOW);   // turn the LED off by making the voltage LOW
+        //     delay(1000);                      // wait for a second
+        //     break;
 
-          case '2':
-            digitalWrite(LED2, HIGH);  // turn the LED on (HIGH is the voltage level)
-            delay(1000);                      // wait for a second
-            digitalWrite(LED2, LOW);   // turn the LED off by making the voltage LOW
-            delay(1000);                      // wait for a second
-        }
+        //   case '2':
+        //     digitalWrite(LED2, HIGH);  // turn the LED on (HIGH is the voltage level)
+        //     delay(1000);                      // wait for a second
+        //     digitalWrite(LED2, LOW);   // turn the LED off by making the voltage LOW
+        //     delay(1000);                      // wait for a second
+        // }
       }
     }
   }
