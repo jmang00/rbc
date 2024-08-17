@@ -4,9 +4,6 @@
 
 #pragma once
 
-// Leds
-#define LED 7
-
 // Motors
 #define ENA 5 // PWM ~
 #define IN1 6 // can use As
