@@ -1,8 +1,20 @@
-#ifndef FILE_H
-#define FILE_H
+/**
+ * Define pins here.
+ */
 
-/* Define pins here*/
+#pragma once
 
-#define LED_PIN 7
+// Leds
+#define LED 7
 
-#endif
+// Motors
+#define ENA 5 // PWM ~
+#define IN1 6 // can use As
+#define IN2 7
+#define IN3 8
+#define IN4 9
+#define ENB 10 // PWM ~
+
+// Bluetooth
+#define RX
+#define TX

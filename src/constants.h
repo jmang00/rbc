@@ -1,7 +1,4 @@
-#ifndef FILE_H
-#define FILE_H
+#pragma once
 
 #define SERIAL_BAUDRATE 115200
 #define BLUETOOTH_BAUDRATE 9600
-
-#endif

@@ -7,9 +7,4 @@
 
 
 # Info
-`/scripts`
-Contains scripts for
-
-These 
-
-
+Make sure to include p
