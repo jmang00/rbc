@@ -23,6 +23,7 @@
 int frame = 0;  // keeps track of the number of frames that have passed
 int frameStart, frameEnd;   // record frame times
 int debug_level = 3; // 0=nothing, 1=serial controls + basics, 2=everything, 3=everything + delay
+bool flippedControls = true; // whether the robot controls is flipped
 
 char serialCharacter; // serial input character
 
@@ -101,7 +102,7 @@ void loop() {
   // updateServos();
 
   
-  if (debug_level >= 3) {
+  if (debug_level >= 4) {
     delay(5000);
   }
 
@@ -200,13 +201,13 @@ void processControllerInput() {
     Serial.println("Pressed CIRCLE.");
     leftServo.write(LEFT_SERVO_OPEN);
     rightServo.write(RIGHT_SERVO_OPEN);
-    delay(2000);
+    // delay(2000);
   }
   
   else if (GamePad.isSquarePressed()) {
     Serial.println("Pressed SQUARE.");
     flippedControls = !flippedControls;
-    delay(2000);
+    // delay(2000);
   }
 
   // else if (GamePad.isTrianglePressed()) {
