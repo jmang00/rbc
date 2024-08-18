@@ -19,7 +19,7 @@
  * 
  */
 #define LEFT_MOTOR_SCALING 1
-#define RIGHT_MOTOR_SCALING 1
+#define RIGHT_MOTOR_SCALING 0.8
 // TODO: add 180 spin sensitivity
 
 /**
