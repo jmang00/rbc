@@ -56,27 +56,29 @@ void setup() {
  * 
  */
 void loop() {
-  // leftMotor.update(7);
-  // rightMotor.update(7);
-  // delay(5000);
+  // Motor test
+  // Comment out 
+  leftMotor.update(7);
+  rightMotor.update(7);
+  delay(5000);
 
-  startFrame();
+  // startFrame();
 
-  if (debug_level >= 1) {
-    processSerialInput();
-  }
+  // if (debug_level >= 1) {
+  //   processSerialInput();
+  // }
 
-  processControllerInput();
+  // processControllerInput();
 
-  // joystickAngle = 0;
-  // joystickRadius = 7;
-  updateMotorsFromJoyStick();
+  // // joystickAngle = 0;
+  // // joystickRadius = 7;
+  // updateMotorsFromJoyStick();
   
-  if (debug_level >= 3) {
-    delay(5000);
-  }
+  // if (debug_level >= 3) {
+  //   delay(5000);
+  // }
 
-  endFrame();
+  // endFrame();
 }
 
 
