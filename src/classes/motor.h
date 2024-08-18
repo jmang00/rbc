@@ -28,6 +28,10 @@ private:
   // TODO: could be useful to manually define how motor scales
   // int[] _speeds = {0, 0, 180, 190, 200, 210, 220, 230, 240, 250, 255};
 
+  // start at 180
+  // 8 elements
+  int _motorSpeeds[8] = {0, 195, 205, 215, 225, 235, 245, 255};
+
 public:
   /**
    * @brief Construct a new Motor object
@@ -97,7 +101,6 @@ public:
     }
 
     int PWM = round((float)s/7*255);
-    // return PWM;
     analogWrite(_ena, PWM);
     _speed = s;
   }
@@ -141,7 +144,9 @@ public:
     // }
 
     // Bare minimum version
-    analogWrite(_ena, round((float)abs(n)/7*255));
+    // int speedPWM = round((float)abs(n)/7*255)
+    int speedPWM = _motorSpeeds[abs(n)];
+    analogWrite(_ena, speedPWM);
 
     if (n > 1) {
       digitalWrite(_in1, HIGH);
