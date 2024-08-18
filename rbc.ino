@@ -71,11 +71,14 @@ void setup() {
  * 
  */
 void loop() {
+<<<<<<< Updated upstream
   // // Motor test
   // // Comment out 
   // leftMotor.update(7);
   // rightMotor.update(7);
   // delay(5000);
+=======
+>>>>>>> Stashed changes
   leftMotor.update(7);
   rightMotor.update(7);
   delay(5000);
@@ -100,6 +103,10 @@ void loop() {
   // joystickAngle = 90 * DEG_TO_RAD;
   // joystickRadius = 7;
   updateMotorsFromJoyStick();
+
+  // currently updated in processSerialInput()
+  // updateServos();
+
   
   if (debug_level >= 3) {
     delay(5000);
