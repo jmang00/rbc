@@ -22,7 +22,7 @@
 // everything declared here can be used in loop()
 int frame = 0;  // keeps track of the number of frames that have passed
 int frameStart, frameEnd;   // record frame times
-int debug_level = 3; // 0=nothing, 1=serial controls + basics, 2=everything, 3=everything + delay
+int debug_level = 2; // 0=nothing, 1=serial controls + basics, 2=everything, 3=everything + delay
 bool flippedControls = true; // whether the robot controls is flipped
 
 char serialCharacter; // serial input character
@@ -72,37 +72,25 @@ void setup() {
  * 
  */
 void loop() {
-  // // Motor test
-  // // Comment out 
-  // leftMotor.update(7);
-  // rightMotor.update(7);
-  // delay(5000);
   startFrame();
 
-  // if (debug_level >= 1) {
-  //   processSerialInput();
+  // Tests that can be un commented
+  // simpleMotorTest();
+  
+  // Don't need any Serial input for the competition
+  // processSerialInput();
   // }
 
   processControllerInput();
-
-  // for (int i = 0; i < 4; i++) {
-  //   Serial.print("Angle: ");
-  //   Serial.println(90 * i);
-  //   joystickAngle = 90 * i * DEG_TO_RAD;
-  //   joystickRadius = 7;
-  //   updateMotorsFromJoyStick();
-  //   delay(5000);
-  // }
 
   // joystickAngle = 90 * DEG_TO_RAD;
   // joystickRadius = 7;
   updateMotorsFromJoyStick();
 
-  // currently updated in processSerialInput()
+  // Comment out for now - currently updated in processSerialInput()
   // updateServos();
 
-  
-  if (debug_level >= 4) {
+  if (debug_level >= 3) {
     delay(5000);
   }
 
@@ -286,5 +274,22 @@ void endFrame() {
     Serial.println();
 
     Serial.println();
+  }
+}
+
+
+
+
+// ---------------------------------Testing routines --------------------------
+// Each function below is run once per FRAME
+
+void simpleMotorTest() {
+  for (int i = 0; i < 4; i++) {
+    Serial.print("Angle: ");
+    Serial.println(90 * i);
+    joystickAngle = 90 * i * DEG_TO_RAD;
+    joystickRadius = 7;
+    updateMotorsFromJoyStick();
+    delay(5000);
   }
 }
