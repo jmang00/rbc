@@ -200,10 +200,19 @@ void processControllerInput() {
     Serial.println("Pressed CIRCLE.");
     leftServo.write(LEFT_SERVO_OPEN);
     rightServo.write(RIGHT_SERVO_OPEN);
+    delay(2000);
   }
   
-  // GamePad.isTrianglePressed();
-  // GamePad.isSquarePressed();
+  else if (GamePad.isSquarePressed()) {
+    Serial.println("Pressed SQUARE.");
+    flippedControls = !flippedControls;
+    delay(2000);
+  }
+
+  // else if (GamePad.isTrianglePressed()) {
+  //   Serial.println("Pressed TRIANGLE.");
+
+  // }
 
 }
 
