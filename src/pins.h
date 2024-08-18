@@ -15,3 +15,7 @@
 // Bluetooth
 #define RX 4
 #define TX 2
+
+// Servos
+#define LEFT_SERVO 3
+#define RIGHT_SERVO 11

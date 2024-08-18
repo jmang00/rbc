@@ -6,6 +6,7 @@
 // Arduino Libraries
 #include <math.h>
 #include <Dabble.h>
+#include <Servo.h>
 
 // Local Imports
 #include "src/pins.h"
@@ -28,13 +29,20 @@ char serialCharacter; // serial input character
 // Controller inputs
 float joystickRadius, // an integer between 0 and 7
       joystickAngle;  // an angle in RADIANS
-bool flippedControls = true; // whether the robot controls is flipped
 
-int leftSpeed, rightSpeed;
+int leftMotorSpeed, rightMotorSpeed;
+int leftServoAngle, rightServoAngle;
+
+// bool updateMotorsFlag = false;
+// bool updateServosFlag = false;
 
 // Motors`
-Motor leftMotor(ENA, IN1, IN2);
-Motor rightMotor(ENB, IN3, IN4);
+Motor leftMotor;
+Motor rightMotor;
+
+// Servos
+Servo leftServo;
+Servo rightServo;
 
 // ------------------------------ THE MAIN BIT ------------------------------
 
@@ -48,8 +56,14 @@ void setup() {
   Dabble.begin(BLUETOOTH_BAUDRATE, RX, TX);
 
   // Initialise motors
-  leftMotor.init();
-  rightMotor.init();
+  leftMotor.init(ENA, IN1, IN2);
+  rightMotor.init(ENB, IN3, IN4);
+
+  // Initialise servos
+  leftServo.attach(LEFT_SERVO);
+  rightServo.attach(RIGHT_SERVO);
+  leftServo.write(LEFT_SERVO_OPEN);
+  rightServo.write(RIGHT_SERVO_OPEN);
 }
 
 /**
@@ -62,6 +76,9 @@ void loop() {
   // leftMotor.update(7);
   // rightMotor.update(7);
   // delay(5000);
+  leftMotor.update(7);
+  rightMotor.update(7);
+  delay(5000);
 
   startFrame();
 
@@ -83,6 +100,10 @@ void loop() {
   // joystickAngle = 90 * DEG_TO_RAD;
   // joystickRadius = 7;
   updateMotorsFromJoyStick();
+
+  // currently updated in processSerialInput()
+  // updateServos();
+
   
   // if (debug_level >= 3) {
   //   delay(5000);
@@ -155,6 +176,39 @@ void processControllerInput() {
     Serial.print("Joystick Angle: ");
     Serial.println(joystickAngle);
   }
+
+  // X = close servos
+  if (GamePad.isCrossPressed()) {
+    Serial.println("Pressed CROSS.");
+    leftServo.write(LEFT_SERVO_CLOSED);
+    rightServo.write(RIGHT_SERVO_CLOSED);
+
+    // TODO: only update servos when necessary
+    // switch (PINCER_CLOSE_MODE)
+    // {
+    // case 't'/:
+    //   leftServoAngle = LEFT_SERVO_CLOSED;
+    //   rightServoAngle = RIGHT_SERVO_CLOSED;
+    //   break;
+    
+    // case 'h'/:
+    //   leftServoAngle += LEFT_SERVO_SPEED;
+    //   rightServoAngle += RIGHT_SERVO_SPEED;
+    //   break;
+    // default:
+    //   break;
+    // }
+    
+  }
+  else if (GamePad.isCirclePressed()) {
+    Serial.println("Pressed CIRCLE.");
+    leftServo.write(LEFT_SERVO_OPEN);
+    rightServo.write(RIGHT_SERVO_OPEN);
+  }
+  
+  // GamePad.isTrianglePressed();
+  // GamePad.isSquarePressed();
+
 }
 
 /**
@@ -171,29 +225,41 @@ void updateMotorsFromJoyStick() {
 
   // Have a deadzone in the middle
   if (joystickRadius > CONTROLLER_DEADZONE) {
-    leftSpeed = joystickRadius * calcL(joystickAngle);
-    rightSpeed = joystickRadius * calcR(joystickAngle);   
+    leftMotorSpeed = joystickRadius * calcL(joystickAngle);
+    rightMotorSpeed = joystickRadius * calcR(joystickAngle);   
   }
   else {
-    leftSpeed = 0;
-    rightSpeed = 0;
-  }
-  
-  if (flippedControls) {
-    leftSpeed = leftSpeed * -1;
-    rightSpeed = rightSpeed * -1;
+    leftMotorSpeed = 0;
+    rightMotorSpeed = 0;
   }
 
-  leftMotor.update(leftSpeed);
-  rightMotor.update(rightSpeed);
+  leftMotor.update(leftMotorSpeed);
+  rightMotor.update(rightMotorSpeed);
 
   if (debug_level >= 2) {
-    Serial.print("Left Speed: ");
-    Serial.println(leftSpeed);
-    Serial.print("Right Speed: ");
-    Serial.println(rightSpeed);
+    Serial.print("Left motor speed set to ");
+    Serial.println(leftMotorSpeed);
+    Serial.print("Right motor speed set to ");
+    Serial.println(rightMotorSpeed);
   }
 }
+
+// TODO: actually use this
+// /**
+//  * @brief Update the servos based on the current angle
+//  * 
+//  */
+// void updateServos() {
+//   leftServo.write(leftServoAngle);
+//   rightServo.write(rightServoAngle);
+
+//     if (debug_level >= 2) {
+//       Serial.print("Left Servo angle set to: ");
+//       Serial.println(leftMotorSpeed);
+//       Serial.print("Right Speed: ");
+//       Serial.println(rightMotorSpeed);
+//     }
+// }
 
 /**
  * @brief Run at the end of each frame
