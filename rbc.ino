@@ -239,6 +239,12 @@ void updateMotorsFromJoyStick() {
     rightMotorSpeed = 0;
   }
 
+    
+  if (flippedControls) {
+    leftMotorSpeed = leftMotorSpeed * -1;
+    rightMotorSpeed = rightMotorSpeed * -1;
+  }
+
   leftMotor.update(leftMotorSpeed);
   rightMotor.update(rightMotorSpeed);
 
