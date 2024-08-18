@@ -100,14 +100,10 @@ void loop() {
   // joystickAngle = 90 * DEG_TO_RAD;
   // joystickRadius = 7;
   updateMotorsFromJoyStick();
-
-  // currently updated in processSerialInput()
-  // updateServos();
-
   
-  // if (debug_level >= 3) {
-  //   delay(5000);
-  // }
+  if (debug_level >= 3) {
+    delay(5000);
+  }
 
   endFrame();
 }
