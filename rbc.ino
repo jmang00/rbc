@@ -143,6 +143,15 @@ void processControllerInput() {
   Dabble.processInput(); 
 
   joystickRadius = GamePad.getRadius();
+  
+  
+  if (joystickRadius <= 2) {
+    joystickRadius = 0;
+  }
+  else {
+    joystickRadius = 7;
+  }
+  
   joystickAngle = GamePad.getAngle() * DEG_TO_RAD;  // convert to radians
 
   // // Flip the controls if needed
@@ -214,7 +223,7 @@ void updateMotorsFromJoyStick() {
     Serial.print("calcL result:");
     Serial.println(calcL(joystickAngle));
     Serial.print("calcR result:");
-    Serial.println(calcL(joystickAngle));
+    Serial.println(calcR(joystickAngle));
   }
 
   // Have a deadzone in the middle
@@ -227,12 +236,16 @@ void updateMotorsFromJoyStick() {
     rightMotorSpeed = 0;
   }
 
-    
+  // Handle flipped controls    
   if (flippedControls) {
     leftMotorSpeed = leftMotorSpeed * -1;
     rightMotorSpeed = rightMotorSpeed * -1;
   }
 
+  // Round motor speed (a float b/w -7 and 7) to the nearest integer
+  leftMotorSpeed = round(leftMotorSpeed);
+  rightMotorSpeed = round(rightMotorSpeed);
+  
   leftMotor.update(leftMotorSpeed);
   rightMotor.update(rightMotorSpeed);
 
