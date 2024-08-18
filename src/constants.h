@@ -18,7 +18,8 @@
  * @brief Motors
  * 
  */
-// TODO: add motor scaling constants here
+#define LEFT_MOTOR_SCALING 1
+#define RIGHT_MOTOR_SCALING 1
 // TODO: add 180 spin sensitivity
 
 /**

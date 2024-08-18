@@ -38,8 +38,8 @@ int leftServoAngle, rightServoAngle;
 // bool updateServosFlag = false;
 
 // Motors`
-Motor leftMotor(ENA, IN1, IN2, 1);
-Motor rightMotor(ENB, IN3, IN4, 1);
+Motor leftMotor(ENA, IN1, IN2, LEFT_MOTOR_SCALING);
+Motor rightMotor(ENB, IN3, IN4, RIGHT_MOTOR_SCALING);
 
 // Servos
 Servo leftServo;

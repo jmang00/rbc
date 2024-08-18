@@ -141,7 +141,7 @@ public:
     // }
 
     // Bare minimum version
-    analogWrite(_ena, round((float)abs(n)/7*255));
+    analogWrite(_ena, round((float)abs(n)/7*255*_scaling));
 
     if (n > 1) {
       digitalWrite(_in1, HIGH);
