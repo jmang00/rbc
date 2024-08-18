@@ -69,19 +69,20 @@ void loop() {
   //   processSerialInput();
   // }
 
-  // processControllerInput();
-  for (int i = 0; i < 4; i++) {
-    Serial.print("Angle: ");
-    Serial.println(90 * i);
-    joystickAngle = 90 * i * DEG_TO_RAD;
-    joystickRadius = 7;
-    updateMotorsFromJoyStick();
-    delay(5000);
-  }
+  processControllerInput();
+
+  // for (int i = 0; i < 4; i++) {
+  //   Serial.print("Angle: ");
+  //   Serial.println(90 * i);
+  //   joystickAngle = 90 * i * DEG_TO_RAD;
+  //   joystickRadius = 7;
+  //   updateMotorsFromJoyStick();
+  //   delay(5000);
+  // }
 
   // joystickAngle = 90 * DEG_TO_RAD;
   // joystickRadius = 7;
-  // updateMotorsFromJoyStick();
+  updateMotorsFromJoyStick();
   
   // if (debug_level >= 3) {
   //   delay(5000);
