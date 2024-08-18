@@ -198,10 +198,13 @@ void processControllerInput() {
     // delay(2000);
   }
 
-  // else if (GamePad.isTrianglePressed()) {
-  //   Serial.println("Pressed TRIANGLE.");
-
-  // }
+  else if (GamePad.isTrianglePressed()) {
+    Serial.println("Pressed TRIANGLE.");
+    // Ignore the joystick data and do a 180 spin
+    leftMotor.update(7);
+    rightMotor.update(-7);
+    delay(SPIN_TIME);
+  }
 
 }
 

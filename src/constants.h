@@ -20,6 +20,7 @@
  */
 // TODO: add motor scaling constants here
 // TODO: add 180 spin sensitivity
+#define SPIN_TIME 1000  // in milliseconds
 
 /**
  * @brief Servos
