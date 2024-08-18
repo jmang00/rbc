@@ -28,6 +28,7 @@ char serialCharacter; // serial input character
 // Controller inputs
 float joystickRadius, // an integer between 0 and 7
       joystickAngle;  // an angle in RADIANS
+bool flippedControls = true; // whether the robot controls is flipped
 
 int leftSpeed, rightSpeed;
 
@@ -56,29 +57,37 @@ void setup() {
  * 
  */
 void loop() {
-  // Motor test
-  // Comment out 
-  leftMotor.update(7);
-  rightMotor.update(7);
-  delay(5000);
+  // // Motor test
+  // // Comment out 
+  // leftMotor.update(7);
+  // rightMotor.update(7);
+  // delay(5000);
 
-  // startFrame();
+  startFrame();
 
   // if (debug_level >= 1) {
   //   processSerialInput();
   // }
 
   // processControllerInput();
+  for (int i = 0; i < 4; i++) {
+    Serial.print("Angle: ");
+    Serial.println(90 * i);
+    joystickAngle = 90 * i * DEG_TO_RAD;
+    joystickRadius = 7;
+    updateMotorsFromJoyStick();
+    delay(5000);
+  }
 
-  // // joystickAngle = 0;
-  // // joystickRadius = 7;
+  // joystickAngle = 90 * DEG_TO_RAD;
+  // joystickRadius = 7;
   // updateMotorsFromJoyStick();
   
   // if (debug_level >= 3) {
   //   delay(5000);
   // }
 
-  // endFrame();
+  endFrame();
 }
 
 
@@ -129,6 +138,16 @@ void processControllerInput() {
   joystickRadius = GamePad.getRadius();
   joystickAngle = GamePad.getAngle() * DEG_TO_RAD;  // convert to radians
 
+  // // Flip the controls if needed
+  // if (flippedControls) {
+  //   // joystickAngle = 2*PI-joystickAngle;
+
+  //   joystickAngle += PI;
+  //   if (joystickAngle > TWO_PI) {
+  //     joystickAngle -= TWO_PI;
+  //   }
+  // }
+
   if (debug_level >= 2) {
     Serial.print("Joystick Radius: ");
     Serial.println(joystickRadius);
@@ -142,6 +161,13 @@ void processControllerInput() {
  * 
  */
 void updateMotorsFromJoyStick() {
+  if (debug_level >= 2) {
+    Serial.print("calcL result:");
+    Serial.println(calcL(joystickAngle));
+    Serial.print("calcR result:");
+    Serial.println(calcL(joystickAngle));
+  }
+
   // Have a deadzone in the middle
   if (joystickRadius > CONTROLLER_DEADZONE) {
     leftSpeed = joystickRadius * calcL(joystickAngle);
@@ -152,6 +178,11 @@ void updateMotorsFromJoyStick() {
     rightSpeed = 0;
   }
   
+  if (flippedControls) {
+    leftSpeed = leftSpeed * -1;
+    rightSpeed = rightSpeed * -1;
+  }
+
   leftMotor.update(leftSpeed);
   rightMotor.update(rightSpeed);
 
