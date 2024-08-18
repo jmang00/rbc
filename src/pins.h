@@ -18,8 +18,4 @@
 
 // Servos
 #define LEFT_SERVO 3
-<<<<<<< Updated upstream
 #define RIGHT_SERVO 11
-=======
-#define RIGHT_SERVO 11
->>>>>>> Stashed changes

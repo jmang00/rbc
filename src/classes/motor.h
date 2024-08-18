@@ -29,20 +29,28 @@ private:
   // int[] _speeds = {0, 0, 180, 190, 200, 210, 220, 230, 240, 250, 255};
 
 public:
-  Motor();
+  /**
+   * @brief Construct a new Motor object
+   * 
+   * @param ena the enable pin
+   * @param in1 the input 1 pin
+   * @param in2 the input 2 pin
+   * @param scaling the scaling factor
+   */
+   Motor(int ena, int in1, int in2, int scaling = 1) {
+        // Store pin values
+        _ena = ena;
+        _in1 = in1;
+        _in2 = in2;
+
+        _scaling = scaling;
+    };
 
   /**
    * @brief Initialise the motor
    * 
    */
-  void init(int ena, int in1, int in2, int scaling = 1) {
-    // Store pin values
-    _ena = ena;
-    _in1 = in1;
-    _in2 = in2;
-
-    _scaling = scaling;
-
+  void init() {
     // Set pins to OUTput
     pinMode(_ena, OUTPUT);
     pinMode(_in1, OUTPUT);

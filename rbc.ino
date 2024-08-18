@@ -37,8 +37,8 @@ int leftServoAngle, rightServoAngle;
 // bool updateServosFlag = false;
 
 // Motors`
-Motor leftMotor;
-Motor rightMotor;
+Motor leftMotor(ENA, IN1, IN2, 1);
+Motor rightMotor(ENB, IN3, IN4, 1);
 
 // Servos
 Servo leftServo;
@@ -56,8 +56,8 @@ void setup() {
   Dabble.begin(BLUETOOTH_BAUDRATE, RX, TX);
 
   // Initialise motors
-  leftMotor.init(ENA, IN1, IN2);
-  rightMotor.init(ENB, IN3, IN4);
+  leftMotor.init();
+  rightMotor.init();
 
   // Initialise servos
   leftServo.attach(LEFT_SERVO);
